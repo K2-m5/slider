@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
@@ -29,6 +30,11 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: 'style.css',
     }),
+    new CopyPlugin({
+      patterns: [
+        { from: './img', to: './img' },
+      ],
+    }),
   ],
   devServer: {
     contentBase: path.resolve(__dirname, 'dist/'),
@@ -46,6 +52,13 @@ module.exports = {
   module: {
 
     rules: [
+      {
+        test: /\.(png|jpe?g|gif|svg)$/i,
+        loader: 'url-loader',
+        options: {
+          outputPath: '/dist/images',
+        },
+      },
       {
         test: /.(js|jsx)$/,
         exclude: /node_modules/,

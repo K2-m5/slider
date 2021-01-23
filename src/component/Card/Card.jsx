@@ -1,11 +1,15 @@
 import React from 'react';
 
-const Card = () => (
-  <div>
-    <div>Header</div>
-    <div>Body</div>
-    <div>Footer</div>
-  </div>
+import './card.less';
+
+const Card = ({ data }) => (
+  (
+    data.map((i) => (
+      <div className="card">
+        <img src={i} key={i} alt="galaxy" />
+      </div>
+    ))
+  )
 );
 
 export default Card;
