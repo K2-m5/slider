@@ -11,24 +11,29 @@ body {
 
   .btn {
     position: absolute;
-    top: 50%;
+    top: 46%;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    color: #fff;
+    fill: white;
     text-align: center;
-    opacity: 0.5;
-    height: 50px;
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.5);
+    background-color: transparent;
+    border: none;
     cursor: pointer;
 
+    &:focus {
+      outline: none;
+    }
+
+    &:-moz-focus-inner {
+      border: 0;
+    }
+
     &__left {
-      left: 0;
+      left: 2rem;
     }
 
     &__right {
-      right: 0;
+      right: 2rem;
     }
   }
 
