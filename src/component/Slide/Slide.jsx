@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './slide.less';
 
@@ -12,3 +13,8 @@ const Slide = ({
 );
 
 export default Slide;
+
+Slide.propTypes = {
+  id: PropTypes.number.isRequired,
+  to: PropTypes.string.isRequired,
+};
