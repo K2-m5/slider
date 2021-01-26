@@ -4,7 +4,7 @@
   "description": "react-swiper",
   "main": "src/index.js",
   "scripts": {
-    "prod": "webpack --mode development",
+    "prod": "webpack --mode production",
     "dev": "webpack serve --mode development --open --hot",
     "lint": "eslint ./src --fix"
   },
@@ -39,9 +39,11 @@
   "dependencies": {
     "copy-webpack-plugin": "^7.0.0",
     "eslint-config-prettier": "^7.1.0",
+    "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-hot-loader": "^4.13.0",
+    "react-transition-group": "^4.4.1",
     "url-loader": "^4.1.1"
   }
 }
