@@ -8,20 +8,19 @@ const ProgressBar = ({ length, currentIndex, handleClickIndicator }) => {
 
   for (let i = 0; i < length; i += 1) {
     outPut.push((
-      <li>
+      <li  key={`progress__item__${i}`}>
         <button
           aria-label="item"
           className={`progress__list_item item_${i} ${currentIndex === i ? 'item_selected' : ''}`}
           value={i}
           type="button"
-          key={`progress__item__${i}`}
           onClick={(e) => handleClickIndicator(e)}
         />
       </li>));
   }
 
   return (
-    <ul className="progress__list">
+    <ul className="progress__list" key="progress__list">
       {outPut}
     </ul>
   );

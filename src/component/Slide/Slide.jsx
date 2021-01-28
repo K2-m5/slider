@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import './slide.less';
 
 const Slide = ({
-  id,
+  index,
   to,
 }) => (
-  <div className={`carousel__slide slide__${id}`} key={`slide__${id}`}>
+  <div className={`carousel__slide slide__${index}`}>
     <img src={to} alt="galaxy" />
   </div>
 );
@@ -15,6 +15,6 @@ const Slide = ({
 export default Slide;
 
 Slide.propTypes = {
-  id: PropTypes.number.isRequired,
+  index: PropTypes.number.isRequired,
   to: PropTypes.string.isRequired,
 };
