@@ -6,7 +6,7 @@ import './progress-bar.less';
 const ProgressBar = ({ length, currentIndex, handleClickIndicator }) => {
   const outPut = [];
 
-  for (let i = 1; i < length + 1; i += 1) {
+  for (let i = 0; i < length; i += 1) {
     outPut.push((
       <li>
         <button
@@ -15,7 +15,7 @@ const ProgressBar = ({ length, currentIndex, handleClickIndicator }) => {
           value={i}
           type="button"
           key={`progress__item__${i}`}
-          onClick={() => handleClickIndicator()}
+          onClick={(e) => handleClickIndicator(e)}
         />
       </li>));
   }
