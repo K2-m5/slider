@@ -3,10 +3,14 @@ import PropTypes from 'prop-types';
 
 import './progress-bar.less';
 
-const ProgressBar = ({ length, currentIndex, handleClickIndicator }) => {
+const ProgressBar = ({ length, currentIndex, show, handleClickIndicator }) => {
   const outPut = [];
 
-  for (let i = 0; i < length; i += 1) {
+  for (
+    let i = show;
+    i < length + show;
+    i += 1
+    ) {
     outPut.push((
       <li  key={`progress__item__${i}`}>
         <button

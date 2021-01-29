@@ -24,6 +24,7 @@
     "rules": {
         "linebreak-style": ["error", "windows"],
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-        "arrow-body-style": ["error", "as-needed"]
+        "arrow-body-style": ["error", "as-needed"],
+        "react/forbid-prop-types": ["enabled", { "forbid": ["any", "array", "object"], "checkContextTypes": false, "checkChildContextTypes": false }]
     }
 }
