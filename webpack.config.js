@@ -32,7 +32,8 @@ module.exports = {
     }),
     new CopyPlugin({
       patterns: [
-        { from: './img', to: './img' },
+        { from: './assets/img', to: './assets/img' },
+        { from: './assets/font', to: './assets/font' },
       ],
     }),
   ],
@@ -56,7 +57,14 @@ module.exports = {
         test: /\.(png|jpe?g|gif|svg)$/i,
         loader: 'url-loader',
         options: {
-          outputPath: '/dist/images',
+          outputPath: '/dist/assets/img',
+        },
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        loader: 'url-loader',
+        options: {
+          outputPath: '/dist/assets/font',
         },
       },
       {

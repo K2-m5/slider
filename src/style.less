@@ -1,13 +1,133 @@
-body {
-  background-color: gray;
-
-  ul, li, button {
-    padding: 0;
-  }
+@font-face {
+  font-family: "Lato";
+  src: url('/assets/font/Lato-Black.ttf');
+  font-weight: 900;
 }
 
-.wrapper {
-  padding-top: 2rem;
+@font-face {
+  font-family: "Lato";
+  src: url('/assets/font/Lato-Regular.ttf');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Lato";
+  src: url('/assets/font/Lato-Light.ttf');
+  font-weight: 300;
+}
+
+body {
+  font-size: 10px;
+  font-family: "Lato";
+  box-sizing: border-box;
+  background-color: #fefefe;
+  color: #555555;
+
+  :before, :after {
+    box-sizing: inherit;
+}
+
+  html, body, div, applet, object, iframe,
+  h1, h2, h3, h4, h5, h6, p,
+  blockquote, pre, a, abbr, acronym, address,
+  big, cite, code, del, dfn, em, img, ins, kbd, q, s,
+  samp, small, strike, strong, sub, sup, tt,
+  var, b, u, i, center, dl, dt, dd, ol, ul, li,
+  fieldset, form, label, legend, table, caption, tbody,
+  tfoot, thead, tr, th, td, article, aside, canvas, details,
+  embed, figure, figcaption, footer, header, hgroup, menu,
+  nav, output, ruby, section, summary, time, mark, audio,
+  video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+  }
+
+  .wrapper {
+    max-width: 1020px;
+    margin: auto;
+    padding: 2rem 5%;
+  }
+
+  h1 {
+    font-size: 2.3rem;
+    padding-bottom: 2rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+    padding-bottom: 1rem;
+  }
+
+  h3 {
+    font-size: 1.6rem;
+  }
+
+  h4 {
+    font-size: 1.2rem;
+  }
+  
+  li, p {
+    font-size: 1.2rem;
+  }
+
+  ul, p, h3 {
+    padding-bottom: 1rem;
+  }
+
+  pre, code {
+    font-family: "Deja-vu Sans Mono", Monaco, Menlo, Consolas, "Courier New", monospace;
+    font-size: 13px;
+    line-height: 1.5em;
+    color: rgb(51 51 51);
+    background: rgb(247 247 249);
+    border: 1px solid rgb(225 225 232);
+    border-radius: 3px;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+  }
+
+  pre {
+    margin: 0 1rem;
+    padding: .8em 1em;
+  }
+
+  code { 
+    padding: .2em .5em;
+  }
+
+  header ul{
+    padding-bottom: 3rem;
+    padding-left: 2rem;
+  }
+
+  .container__example {
+    padding-bottom: 3rem;
+
+    .example{
+
+      &__props-list ul {
+        padding-left: 2rem;
+      }
+
+      &__code{
+      padding-top: 1rem;
+      }
+    }
+  }
+
+  .slider__container {
+
+
+    &_example{
+      padding: 2rem;
+      display: flex;
+      justify-content: space-between;
+    }
+  }
 }
 
 @media (hover: none) and (pointer: coarse) {
