@@ -8,38 +8,36 @@ import ProgressBar from '../ProgressBar/ProgressBar';
 import './slider.less';
 
 const Slider = ({
-  width,
-  height,
-  slides,
-  show = 1,
+  children,
+  showSlide,
   infiniteLoop,
   isProgressBar,
 }) => {
-  const [length, setLength] = useState(slides.length);
-  const [currentIndex, setCurrentIndex] = useState(infiniteLoop ? show : 0);
-  const [currentIndicator, setCurrentIndicator] = useState(infiniteLoop ? show : 0);
+  const [length, setLength] = useState(children.length);
+  const [currentIndex, setCurrentIndex] = useState(infiniteLoop ? showSlide : 0);
+  const [currentIndicator, setCurrentIndicator] = useState(infiniteLoop ? showSlide : 0);
 
-  const [isRepeating, setIsRepeating] = useState(infiniteLoop && slides.length >= show);
+  const [isRepeating, setIsRepeating] = useState(infiniteLoop && children.length >= showSlide);
   const [isTransition, setTransition] = useState(true);
 
   const [touchPosition, setTouchPosition] = useState(null);
 
   useEffect(() => {
-    setLength(slides.length);
-    setIsRepeating(infiniteLoop && slides.length > show);
-  }, [slides, infiniteLoop, show]);
+    setLength(children.length);
+    setIsRepeating(infiniteLoop && children.length > showSlide);
+  }, [children, infiniteLoop, showSlide]);
 
   useEffect(() => {
-    if (isRepeating && (currentIndex === show || currentIndex === length)) {
+    if (isRepeating && (currentIndex === showSlide || currentIndex === length)) {
       setTransition(true);
     }
-  }, [currentIndex, isRepeating, show, length, isTransition]);
+  }, [currentIndex, isRepeating, showSlide, length, isTransition]);
 
   useEffect(() => {
-    if (isRepeating && currentIndicator < show) {
+    if (isRepeating && currentIndicator < showSlide) {
       setCurrentIndicator(index => index + length);
-    } else if (isRepeating && currentIndicator === (length + show)) {
-      setCurrentIndicator(show);
+    } else if (isRepeating && currentIndicator === (length + showSlide)) {
+      setCurrentIndicator(showSlide);
     }
   }, [currentIndicator, isRepeating, length]);
 
@@ -48,9 +46,9 @@ const Slider = ({
       if (currentIndex === 0) {
         setTransition(false);
         setCurrentIndex(length);
-      } else if (currentIndex === length + show) {
+      } else if (currentIndex === length + showSlide) {
         setTransition(false);
-        setCurrentIndex(show);
+        setCurrentIndex(showSlide);
       }
     }
   };
@@ -63,7 +61,7 @@ const Slider = ({
   };
 
   const handleClickNext = () => {
-    if ((isRepeating || currentIndex < length - show) && currentIndex !== (length + show)) {
+    if ((isRepeating || currentIndex < length - showSlide) && currentIndex !== (length + showSlide)) {
       setCurrentIndex((index) => (index + 1));
       setCurrentIndicator((index) => (index + 1));
     }
@@ -103,9 +101,8 @@ const Slider = ({
 
   const renderPrevSlide = () => {
     const output = [];
-    for (let i = 0; i < show; i += 1) {
-      const {to} = slides[length - 1 - i]
-      output.push(<Slide index={length - i} to={to} key={`transition__slide__${length - i}`} />);
+    for (let i = 0; i < showSlide; i += 1) {
+      output.push(children[length - 1 - i]);
     }
 
     return output.reverse();
@@ -113,9 +110,8 @@ const Slider = ({
 
   const renderNextSlide = () => {
     const output = [];
-    for (let i = 0; i < show; i += 1) {
-      const { to } = slides[i]
-      output.push(<Slide index={show - i} to={to} key={`transition__slide__${show - i}`} />);
+    for (let i = 0; i < showSlide; i += 1) {
+      output.push(children[i]);
     }
 
     return output;
@@ -123,11 +119,7 @@ const Slider = ({
 
   return (
     <div
-      className="container"
-      style={{
-        width: `${width}px`,
-        height: `${height}px`,
-      }}
+      className="carousel__container-main"
     >
       <div
         className="carousel__container"
@@ -140,46 +132,52 @@ const Slider = ({
             display: 'flex',
             transform: `translateX(-${currentIndex * 100}%)`,
             transition: !isTransition ? 'none' : undefined,
-            width: `calc(100%/${show})`,
+            width: `calc(100%/${showSlide})`,
           }}
           onTransitionEnd={() => handleTransitionEnd()}
         >
           {
-            (length >= show && isRepeating)
+            (length >= showSlide && isRepeating)
             && renderPrevSlide()
           }
-          {slides.map((item, i) => (<Slide index={i + 1} to={item.to} key={`slide__key__${i}`} />))}
+          {children}
           {
-            (length >= show && isRepeating)
+            (length >= showSlide && isRepeating)
             && renderNextSlide()
           }
         </div>
       </div>
       {
-        isProgressBar
-        && show === length
+        !isProgressBar
         || (
         <ProgressBar
-          length={isRepeating ? length : show === 1 ? length : length - 1}
-          show={isRepeating ? show : 0}
+          length={isRepeating ? length : showSlide === 1 ? length : length - 1}
+          showSlide={isRepeating ? showSlide : 0}
           currentIndex={currentIndicator}
           handleClickIndicator={handleClickIndicator}
         />
         )
       }
       {(isRepeating || currentIndex > 0) && <Button.Prev prev={handleClickPrev} />}
-      {(isRepeating || currentIndex < length - show) && <Button.Next next={handleClickNext} />}
+      {(isRepeating || currentIndex < length - showSlide) && <Button.Next next={handleClickNext} />}
     </div>
   );
+};
+
+Slider.defaultProps = {
+  width: 600,
+  height: 250,
+  showSlide: 1,
+  infiniteLoop: false,
+  isProgressBar: false,
 };
 
 Slider.propTypes = {
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
-  show: PropTypes.number.isRequired,
+  showSlide: PropTypes.number.isRequired,
   infiniteLoop: PropTypes.bool.isRequired,
   isProgressBar: PropTypes.bool.isRequired,
-  slides: PropTypes.array.isRequired,
 };
 
 export default Slider;

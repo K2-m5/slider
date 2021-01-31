@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 
 import './progress-bar.less';
 
-const ProgressBar = ({ length, currentIndex, show, handleClickIndicator }) => {
+const ProgressBar = ({ length, currentIndex, showSlide, handleClickIndicator }) => {
   const outPut = [];
 
   for (
-    let i = show;
-    i < length + show;
+    let i = showSlide;
+    i < length + showSlide;
     i += 1
     ) {
     outPut.push((
