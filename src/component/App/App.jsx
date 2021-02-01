@@ -41,7 +41,9 @@ const App = () => (
           <li><code>showSlide: 1</code></li>
         </ul>
       </div>
-      <Slider>
+      <Slider
+      infiniteLoop
+      >
         <Slide to={img[0].to}/>
         <Slide to={img[1].to}/>
         <Slide to={img[2].to}/>
