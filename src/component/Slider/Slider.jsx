@@ -89,11 +89,9 @@ const Slider = ({
   };
 
   const handleOnMouseDown = e => {
-    if (!carouselRef && !carouselRef.current && !carouselRef.current.contains(e.target)) {
+    if (carouselRef && carouselRef.current && !carouselRef.current.contains(e.target)) {
       return;
     }
-
-    console.log(carouselRef.current);
   
     let clientDownX;
     if (e.type === 'touchstart') {
@@ -248,8 +246,8 @@ const Slider = ({
         />
         )
       }
-      {(isRepeating || currentIndex > 0) && <Button.Prev prev={handleClickPrev} />}
-      {(isRepeating || currentIndex < length - showSlide) && <Button.Next next={handleClickNext} />}
+      {(isRepeating || currentIndex > 0) && <Button handle={handleClickPrev} icon={'prev'} />}
+      {(isRepeating || currentIndex < length - showSlide) && <Button handle={handleClickNext} icon={'next'}/>}
     </div>
   );
 };
