@@ -1,16 +1,17 @@
-.progress {
-  &__list {
+.slider {
+  &__navigation {
   position: absolute;
-  bottom: 0%;
+  bottom: 3%;
   width: 100%;
   display: flex;
   justify-content: center;
   list-style: none;
 
-
-  &_item {
-    height: 0.75rem;
-    margin: 0 .5rem;
+  &_button {
+    height: 1rem;
+    width: 1rem;
+    margin: 0 .3rem;
+    padding: 0 .5rem;
     background: #fff;
     opacity: .5;
     border-radius: 50%;
@@ -22,7 +23,7 @@
     }
   }
 
-  .item_selected {
+  .button_selected {
     opacity: 1;
     }
   }

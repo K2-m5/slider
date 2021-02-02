@@ -42,7 +42,7 @@ const App = () => (
         </ul>
       </div>
       <Slider
-      infiniteLoop
+      
       isProgressBar
       >
         <Slide to={img[0].to}/>
@@ -81,7 +81,7 @@ const App = () => (
             className="you-tube__player"
             width="100%"
             height="300px"
-            src={"https://www.youtube.com/embed/Gq_kY3XPTpU?autoplay=1&mute=1enablejsapi=1"}
+            src={"https://www.youtube.com/embed/Gq_kY3XPTpU?autoplay=1&mute=1enablejsapi=0"}
             frameBorder="0"
             />
         </div>

@@ -19,8 +19,6 @@ const Slider = ({
   const [isRepeating, setIsRepeating] = useState(infiniteLoop && children.length >= showSlide);
   const [isTransition, setTransition] = useState(true);
 
-  const [touchPosition, setTouchPosition] = useState(null);
-
   const carouselRef = useRef();
   const [scrollingState, setScrollingState] = useState({
     isScrolling: false,
@@ -84,17 +82,19 @@ const Slider = ({
     }
   };
 
-  const handleClickIndicator = (e) => {
+  const handleClickIndicator = e => {
     const value = parseInt(e.target.value, 10);
     setCurrentIndex(value);
     setCurrentIndicator(value);
   };
 
   const handleOnMouseDown = e => {
-    if (carouselRef && carouselRef.current && !carouselRef.current.contains(e.target)) {
+    if (!carouselRef && !carouselRef.current && !carouselRef.current.contains(e.target)) {
       return;
     }
 
+    console.log(carouselRef.current);
+  
     let clientDownX;
     if (e.type === 'touchstart') {
       clientDownX = e.touches[0].clientX;
@@ -103,7 +103,7 @@ const Slider = ({
       clientDownX = e.clientX;
     }
 
-    carouselRef.current.style.transition = '0s';
+    carouselRef.current.style.transitionDuration = '0s';
     setScrollingState({
       ...scrollingState,
       isScrolling: true,
@@ -111,7 +111,7 @@ const Slider = ({
     })
   }
 
-  const handleOnMouseMove = (e) => {
+  const handleOnMouseMove = e => {
     if (!carouselRef && !carouselRef.current && !carouselRef.current.contains(e.target)) {
       return;
     }
@@ -137,18 +137,27 @@ const Slider = ({
   }
 
   const changeSlideHandle = () => {
-    carouselRef.current.style.transition = '.2s';  
+    carouselRef.current.style.transitionDuration = '.2s';  
 
-    if (scrollingState.scrollX > 0.2) {
+    if (scrollingState.scrollX > 0.3) {
+      if (currentIndex === (length - showSlide) && !isRepeating) {
+        currentSlideShow();
+        return;
+      }
+
       handleClickNext();
-    } else if (scrollingState.scrollX < -0.2) {
+    } else if (scrollingState.scrollX < -0.3) {
       handleClickPrev();
     } else {
-      carouselRef.current.style.transform = `translateX(-${(currentIndex) * 100}%)`;
+      currentSlideShow();
     }
   }
 
-  const handleOnMouseUp = (e) => {
+  const currentSlideShow = () => {
+    carouselRef.current.style.transform = `translateX(-${(currentIndex) * 100}%)`;
+  }
+
+  const handleOnMouseUp = e => {
     if (carouselRef && carouselRef.current && !carouselRef.current.contains(e.target)) {
       return;
     }
@@ -166,7 +175,7 @@ const Slider = ({
     })
   }
 
-  const handleOnMouseLeave = (e) => {
+  const handleOnMouseLeave = e => {
     if (!scrollingState.isScrolling) {
       return;
     }

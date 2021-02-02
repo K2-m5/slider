@@ -12,21 +12,21 @@ const ProgressBar = ({ length, currentIndex, showSlide, handleClickIndicator }) 
     i += 1
     ) {
     outPut.push((
-      <li  key={`progress__item__${i}`}>
-        <button
-          aria-label="item"
-          className={`progress__list_item item_${i} ${currentIndex === i ? 'item_selected' : ''}`}
-          value={i}
-          type="button"
-          onClick={(e) => handleClickIndicator(e)}
-        />
-      </li>));
+      <button
+        aria-label="item"
+        key={`button_${i}`}
+        className={`slider__navigation_button button_${i} ${currentIndex === i ? 'button_selected' : ''}`}
+        value={i}
+        type="button"
+        onClick={(e) => handleClickIndicator(e)}
+      />
+    ))
   }
 
   return (
-    <ul className="progress__list" key="progress__list">
+    <div className="slider__navigation" key="progress__list">
       {outPut}
-    </ul>
+    </div>
   );
 };
 
