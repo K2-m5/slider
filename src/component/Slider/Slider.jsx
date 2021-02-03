@@ -89,7 +89,6 @@ const Slider = ({
   }
 
   const onMouseDown = e => {
-    console.log(e.currentTarget);
     e.preventDefault();
     let clientDownX = e.clientX;
 

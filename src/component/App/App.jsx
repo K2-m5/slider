@@ -1,8 +1,7 @@
 import React from 'react';
 import Slide from '../Slide/Slide';
-import Slider from '../Slider/Slider';
-
-import exampleCode from '../../const/exampleCode';
+import Slider from '../Slider/Slider';0
+import GitHub from '../Icon/GitHub';
 
 const img = [
   { to: './assets/img/m82_chandra_hst_spritzer_galaxy.jpg' },
@@ -20,27 +19,49 @@ const img = [
 const App = () => (
   <section className="wrapper">
     <header>
-      <h1>Slider react</h1>
-      <p>React slider component with touch support, works for mobile and desktop devices and any HTML content</p>
-      <h3>Features</h3>
-      <ul>
-        <li>Infinite option</li>
-        <li>Multiple slides to slidesPerView</li>
-        <li>Scrolling to a selected slide</li>
-      </ul>
+      <div className="titles">
+        <h1>Slider react</h1>
+        <a href="https://github.com/K2-m5/slider"><GitHub className={"titles_icon"}/></a>
+      </div>
+      <p>React slider component with touch support, works for mobile and desktop devices. You can work with any HTML content. </p>
     </header>
-    
+    <div>
+    <h3>Props</h3>
+        <table className="table-props">
+          <thead className="table-props__header">
+            <tr>
+              <td>Name</td>
+              <td>Type</td>
+              <td>Default Value</td>
+              <td>Description</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className="props-name_bold">slidesPerView</td>
+              <td>Number</td>
+              <td>1</td>
+              <td>Description</td>
+            </tr>
+            <tr>
+              <td className="props-name_bold">infiniteLoop</td>
+              <td>Boolean</td>
+              <td>false</td>
+              <td>Description</td>
+            </tr>
+            <tr>
+              <td className="props-name_bold">slidesPerView</td>
+              <td>Boolean</td>
+              <td>false</td>
+              <td>Description</td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
     <div className="container__example">
       <h2>Simple slide</h2>
       <p>For simple usage, just pass slides as children. You do not need any configuration!</p>
-      <div className="example__props-list">
-        <h3>Default properties</h3>
-        <ul>
-          <li><code>infiniteLoop: false</code></li>
-          <li><code>showProgressBar: false</code></li>
-          <li><code>slidesPerView: 1</code></li>
-        </ul>
-      </div>
+
       <Slider
       infiniteLoop
       showProgressBar
@@ -50,27 +71,11 @@ const App = () => (
         <Slide to={img[2].to}/>
         <Slide to={img[3].to}/>
       </Slider>
-      <div className="example">
-        <div className="example__code">
-          <h3>Usage</h3>
-          <pre>{ exampleCode.simpleCarousel }</pre>
-        </div>
-      <div>
-    </div>
-      </div>
     </div>
 
     <div className="container__example">
       <h2>Slider with custom options</h2>
-      <p>React slider component with infinite and scrolling to a selected slide options, and works any HTML content</p>
-      <div className="example__props-list">
-        <h3>Custom properties</h3>
-        <ul>
-          <li><code>infiniteLoop: true</code></li>
-          <li><code>showProgressBar: true</code></li>
-          <li><code>slidesPerView: 2</code></li>
-        </ul>
-      </div>
+      <p>React slider component with infinite and scrolling to a selected slide options.</p>
       <Slider
         slidesPerView={2}
         infiniteLoop
@@ -99,14 +104,6 @@ const App = () => (
         <Slide to={img[2].to}/>
         <Slide to={img[3].to}/>
       </Slider>
-      <div className="example">
-        <div className="example__code">
-          <h3>Usage</h3>
-          <pre>{ exampleCode.customCarousel }</pre>
-        </div>
-      <div>
-    </div>
-      </div>
     </div>
   </section>
 );
