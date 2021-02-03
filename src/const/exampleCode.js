@@ -16,9 +16,9 @@ const simpleCarousel =
 
 const customCarousel = 
 `<Slider
-  showSlide={2}
+  slidesPerView={2}
   infiniteLoop
-  isProgressBar
+  showProgressBar
   >
     <div className="carousel__slide slide">
       <iframe 

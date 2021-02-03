@@ -3,22 +3,18 @@ import PropTypes from 'prop-types';
 
 import './progress-bar.less';
 
-const ProgressBar = ({ length, currentIndex, showSlide, handleClickIndicator }) => {
+const ProgressBar = ({ length, currentIndex, slidesPerView, onClickIndicator }) => {
   const outPut = [];
 
-  for (
-    let i = showSlide;
-    i < length + showSlide;
-    i += 1
-    ) {
+  for (let i = slidesPerView; i < length + slidesPerView; i += 1) {
     outPut.push((
       <button
         aria-label="item"
         key={`button_${i}`}
-        className={`slider__navigation_button button_${i} ${currentIndex === i ? 'button_selected' : ''}`}
+        className={`slider__navigation_button ${currentIndex === i ? 'button_selected' : ''}`}
         value={i}
         type="button"
-        onClick={(e) => handleClickIndicator(e)}
+        onClick={(e) => onClickIndicator(e)}
       />
     ))
   }
@@ -30,10 +26,12 @@ const ProgressBar = ({ length, currentIndex, showSlide, handleClickIndicator }) 
   );
 };
 
-export default ProgressBar;
 
 ProgressBar.propTypes = {
   length: PropTypes.number.isRequired,
   currentIndex: PropTypes.number.isRequired,
-  handleClickIndicator: PropTypes.func.isRequired,
+  onClickIndicator: PropTypes.func.isRequired,
+  slidesPerView: PropTypes.number.isRequired,
 };
+
+export default ProgressBar;

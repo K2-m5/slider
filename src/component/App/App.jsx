@@ -25,25 +25,25 @@ const App = () => (
       <h3>Features</h3>
       <ul>
         <li>Infinite option</li>
-        <li>Multiple slides to showSlide</li>
+        <li>Multiple slides to slidesPerView</li>
         <li>Scrolling to a selected slide</li>
       </ul>
     </header>
     
     <div className="container__example">
       <h2>Simple slide</h2>
-      <p>For simple usage, just pass slides as children. You don't need any configuration!</p>
+      <p>For simple usage, just pass slides as children. You do not need any configuration!</p>
       <div className="example__props-list">
         <h3>Default properties</h3>
         <ul>
           <li><code>infiniteLoop: false</code></li>
-          <li><code>isProgressBar: false</code></li>
-          <li><code>showSlide: 1</code></li>
+          <li><code>showProgressBar: false</code></li>
+          <li><code>slidesPerView: 1</code></li>
         </ul>
       </div>
       <Slider
-      
-      isProgressBar
+      infiniteLoop
+      showProgressBar
       >
         <Slide to={img[0].to}/>
         <Slide to={img[1].to}/>
@@ -67,14 +67,14 @@ const App = () => (
         <h3>Custom properties</h3>
         <ul>
           <li><code>infiniteLoop: true</code></li>
-          <li><code>isProgressBar: true</code></li>
-          <li><code>showSlide: 2</code></li>
+          <li><code>showProgressBar: true</code></li>
+          <li><code>slidesPerView: 2</code></li>
         </ul>
       </div>
       <Slider
-        showSlide={2}
+        slidesPerView={2}
         infiniteLoop
-        isProgressBar
+        showProgressBar
       >
         <div className="carousel__slide slide">
           <iframe 
