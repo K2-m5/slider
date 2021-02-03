@@ -6,14 +6,21 @@
     position: relative;
     overflow: hidden;
     margin: 0 auto;
-    box-sizing: border-box;
+    border-radius: 20px;
     user-select: none;
   }
 
   &__slides {
     display: flex;
-    transition: all .2s ease;
     user-select: none;
+
+    &.transition {
+      transition: all .2s ease;
+    }
+  
+    &.transition-stop {
+      transition: none;
+    }  
   }
 
   &__slide {
