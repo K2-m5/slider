@@ -18,45 +18,45 @@ const img = [
 
 const App = () => (
   <section className="wrapper">
-    <header>
+    <header className="header">
       <div className="titles">
         <h1>Slider react</h1>
         <a href="https://github.com/K2-m5/slider"><GitHub className={"titles_icon"}/></a>
       </div>
       <p>React slider component with touch support, works for mobile and desktop devices. You can work with any HTML content. </p>
     </header>
-    <div>
-    <h3>Props</h3>
-        <table className="table-props">
-          <thead className="table-props__header">
-            <tr>
-              <td>Name</td>
-              <td>Type</td>
-              <td>Default Value</td>
-              <td>Description</td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td className="props-name_bold">slidesPerView</td>
-              <td>Number</td>
-              <td>1</td>
-              <td>Description</td>
-            </tr>
-            <tr>
-              <td className="props-name_bold">infiniteLoop</td>
-              <td>Boolean</td>
-              <td>false</td>
-              <td>Description</td>
-            </tr>
-            <tr>
-              <td className="props-name_bold">slidesPerView</td>
-              <td>Boolean</td>
-              <td>false</td>
-              <td>Description</td>
-            </tr>
-          </tbody>
-        </table>
+    <div className="table-container">
+      <h2>Property</h2>
+      <table className="table-props">
+        <thead className="table-props__header">
+          <tr>
+            <td>Name</td>
+            <td>Type</td>
+            <td>Default Value</td>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td className="props-name_bold">slidesPerView</td>
+            <td>Number</td>
+            <td>1</td>
+            <td>Description</td>
+          </tr>
+          <tr>
+            <td className="props-name_bold">infiniteLoop</td>
+            <td>Boolean</td>
+            <td>false</td>
+            <td>Description</td>
+          </tr>
+          <tr>
+            <td className="props-name_bold">slidesPerView</td>
+            <td>Boolean</td>
+            <td>false</td>
+            <td>Description</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <div className="container__example">
       <h2>Simple slide</h2>
@@ -84,8 +84,6 @@ const App = () => (
         <div className="carousel__slide slide">
           <iframe 
             className="you-tube__player"
-            width="100%"
-            height="300px"
             src={"https://www.youtube.com/embed/Gq_kY3XPTpU?autoplay=1&mute=1enablejsapi=0"}
             frameBorder="0"
             />
@@ -95,8 +93,6 @@ const App = () => (
         <div className="carousel__slide slide">
           <iframe 
             className="you-tube__player"
-            width="100%"
-            height="300px"
             src={"https://www.youtube.com/embed/aa7WIo3yA-8?autoplay=1&mute=1enablejsapi=1"}
             frameBorder="0"
             />
