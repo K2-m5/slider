@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
+import Slide from '../Slide/Slide';
 import Button from '../Button/Button';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import BtnImageNext from '../Icons/BtnImageNext';
@@ -9,14 +10,23 @@ import BtnImagePrev from '../Icons/BtnImagePrev';
 import './slider.less';
 
 const Slider = ({
-  children,
+  slides,
   slidesPerView,
   infiniteLoop,
   showProgressBar,
   showButton,
   containerClass,
 }) => {
-  const lengthSlides = children.length;
+  if (!slides) {
+    return (<div style={{color: "red", fontSize: '2rem'}}>{"The slide array is empty, please pass the slide array by pattern."}</div>);
+  }
+
+  if (slidesPerView < 1) {
+    return (<div style={{color: "red", fontSize: '2rem'}}>{"You transmitted a value less than the allowed value, please pass correct value"}</div>);
+  }
+
+  const [arraySlides, setArraySlides] = useState(slides);
+  const [lengthSlides, setLengthSlides] = useState(slides.length);
   const [currentIndex, setCurrentIndex] = useState(infiniteLoop ? slidesPerView : 0);
   const [currentIndicator, setCurrentIndicator] = useState(infiniteLoop ? slidesPerView : 0);
   const sliderRef = useRef();
@@ -28,16 +38,27 @@ const Slider = ({
   });
 
   useEffect(() => {
+    if (arraySlides.length < slidesPerView) {
+
+      for (let i = 0; i < slidesPerView; i++) {
+        arraySlides.push(<div key={`empty__slide ${i}`} className={"empty__slide"}/>)
+      }
+      setArraySlides(arraySlides)
+      setLengthSlides(arraySlides.length);
+    }
+  }, [lengthSlides, slidesPerView])
+
+  useEffect(() => {
     if (!infiniteLoop) {
       return;
     }
 
-    if (infiniteLoop && currentIndicator < slidesPerView) {
+    if (currentIndicator < slidesPerView) {
       setCurrentIndicator((index) => index + lengthSlides);
     } else if (currentIndicator === (lengthSlides + slidesPerView)) {
       setCurrentIndicator(slidesPerView);
     }
-  }, [currentIndicator, infiniteLoop, lengthSlides, slidesPerView]);
+  }, [currentIndicator, lengthSlides]);
 
   const handleTransitionEnd = () => {
     if (!infiniteLoop) {
@@ -195,8 +216,8 @@ const Slider = ({
 
   const renderPrevSlide = () => {
     const output = [];
-    for (let i = 0; i <= slidesPerView; i += 1) {
-      output.push(children[children.length - i]);
+    for (let i = 1; i <= slidesPerView; i += 1) {
+      output.push(<Slide key={`slide-duplicate_${slides.length - i}`}>{slides[slides.length - i]}</Slide>);
     }
 
     return output.reverse();
@@ -205,16 +226,14 @@ const Slider = ({
   const renderNextSlide = () => {
     const output = [];
     for (let i = 0; i < slidesPerView; i += 1) {
-      output.push(children[i]);
+      output.push(<Slide key={`slide-duplicate_${i}`}>{slides[i]}</Slide>);
     }
 
     return output;
   };
-
+  
   return (
-    <div
-      className={`slider__container ${containerClass}`}
-    >
+    <div className={`slider__container ${containerClass}`}>
       <div
         ref={sliderRef}
         className={`slider__slides ${scrollingState.isTransition
@@ -237,7 +256,7 @@ const Slider = ({
           (lengthSlides >= slidesPerView && infiniteLoop)
           && renderPrevSlide()
         }
-        {children}
+        {arraySlides.map((item, index) => ( <Slide key={`slide_${index}`}>{item}</Slide> ))}
         {
           (lengthSlides >= slidesPerView && infiniteLoop)
           && renderNextSlide()
@@ -247,9 +266,9 @@ const Slider = ({
         !showProgressBar
         || (
         <ProgressBar
-          lengthSlides={infiniteLoop
-            ? lengthSlides : slidesPerView === 1
-              ? lengthSlides : lengthSlides - 1}
+          lengthSlides={ infiniteLoop || slidesPerView === 1
+            ? lengthSlides : (lengthSlides - slidesPerView) >= slidesPerView
+              ? lengthSlides - 1 : slidesPerView }
           slidesPerView={infiniteLoop ? slidesPerView : 0}
           currentIndex={currentIndicator}
           onIndicatorClick={onIndicatorClick}
@@ -281,7 +300,7 @@ Slider.propTypes = {
   infiniteLoop: PropTypes.bool,
   showProgressBar: PropTypes.bool,
   showButton: PropTypes.bool,
-  children: PropTypes.array.isRequired,
+  slides: PropTypes.array,
   containerClass: PropTypes.string,
 };
 

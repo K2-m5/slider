@@ -14,11 +14,12 @@ const Slide = ({
 
 Slide.defaultProps = {
   className: '',
+  children: <div />,
 };
 
 Slide.propTypes = {
   className: PropTypes.string,
-  children: PropTypes.element.isRequired,
+  children: PropTypes.element,
 };
 
 export default Slide;
