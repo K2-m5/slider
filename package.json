@@ -6,7 +6,7 @@
   "scripts": {
     "prod": "webpack --mode production",
     "dev": "webpack serve --mode development --open --hot",
-    "lint": "eslint src/**/*.js src/**/*.jsx"
+    "lint": "eslint ./src --fix"
   },
   "author": "Pavel Svirid",
   "license": "ISC",

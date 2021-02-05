@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 import Button from '../Button/Button';
 import ProgressBar from '../ProgressBar/ProgressBar';
-import Next from '../Icon/Next';
-import Prev from '../Icon/Prev';
+import BtnImageNext from '../Icons/BtnImageNext';
+import BtnImagePrev from '../Icons/BtnImagePrev';
 
 import './slider.less';
 
@@ -13,11 +13,13 @@ const Slider = ({
   slidesPerView,
   infiniteLoop,
   showProgressBar,
+  showButton,
+  containerClass,
 }) => {
-  const length = children.length;
+  const lengthSlides = children.length;
   const [currentIndex, setCurrentIndex] = useState(infiniteLoop ? slidesPerView : 0);
   const [currentIndicator, setCurrentIndicator] = useState(infiniteLoop ? slidesPerView : 0);
-  const carouselRef = useRef();
+  const sliderRef = useRef();
   const [scrollingState, setScrollingState] = useState({
     isTransition: true,
     isScrolling: false,
@@ -26,28 +28,34 @@ const Slider = ({
   });
 
   useEffect(() => {
+    if (!infiniteLoop) {
+      return;
+    }
+
     if (infiniteLoop && currentIndicator < slidesPerView) {
-      setCurrentIndicator(index => index + length);
-    } else if (infiniteLoop && currentIndicator === (length + slidesPerView)) {
+      setCurrentIndicator((index) => index + lengthSlides);
+    } else if (currentIndicator === (lengthSlides + slidesPerView)) {
       setCurrentIndicator(slidesPerView);
     }
-  }, [currentIndicator, infiniteLoop, length, slidesPerView]);
+  }, [currentIndicator, infiniteLoop, lengthSlides, slidesPerView]);
 
   const handleTransitionEnd = () => {
-    if (infiniteLoop) {
-      if (currentIndex === 0) {
-        setCurrentIndex(length);
-        setScrollingState({
-          ...scrollingState,
-          isTransition: false,
-        });
-      } else if (currentIndex === length + slidesPerView) {
-        setCurrentIndex(slidesPerView);
-        setScrollingState({
-          ...scrollingState,
-          isTransition: false,
-        });
-      }
+    if (!infiniteLoop) {
+      return;
+    }
+
+    if (currentIndex === 0) {
+      setCurrentIndex(lengthSlides);
+      setScrollingState({
+        ...scrollingState,
+        isTransition: false,
+      });
+    } else if (currentIndex === lengthSlides + slidesPerView) {
+      setCurrentIndex(slidesPerView);
+      setScrollingState({
+        ...scrollingState,
+        isTransition: false,
+      });
     }
     setTimeout(() => {
       setScrollingState({
@@ -57,75 +65,80 @@ const Slider = ({
     }, 0);
   };
 
-  const onClickPrev = () => {
+  const handlePrevClick = () => {
     if ((infiniteLoop || currentIndex > 0) && currentIndex !== 0) {
-      setCurrentIndex((index) => (index - 1));
-      setCurrentIndicator((index) => (index - 1));
+      setCurrentIndex(currentIndex - 1);
+      setCurrentIndicator(currentIndicator - 1);
     }
   };
 
-  const onClickNext = () => {
-    if ((infiniteLoop || currentIndex < length - slidesPerView) && currentIndex !== (length + slidesPerView)) {
-      setCurrentIndex((index) => (index + 1));
-      setCurrentIndicator((index) => (index + 1));
+  const handleNextClick = () => {
+    if ((infiniteLoop
+        || currentIndex < lengthSlides - slidesPerView)
+        && currentIndex !== (lengthSlides + slidesPerView)) {
+      setCurrentIndex(currentIndex + 1);
+      setCurrentIndicator(currentIndicator + 1);
     }
   };
 
-  const onClickIndicator = e => {
+  const onIndicatorClick = (e) => {
     const value = parseInt(e.target.value, 10);
     setCurrentIndex(value);
     setCurrentIndicator(value);
   };
 
-  const onTouchStart = e => {
-    let clientDownX = e.touches[0].clientX;
-
+  const handleTouchStart = (e) => {
     setScrollingState({
       ...scrollingState,
       isTransition: false,
       isScrolling: true,
-      clientX: clientDownX,
-    })
-  }
+      clientX: e.touches[0].clientX,
+    });
+  };
 
-  const onMouseDown = e => {
+  const handleMouseDown = (e) => {
     e.preventDefault();
-    let clientDownX = e.clientX;
-
     setScrollingState({
       ...scrollingState,
       isTransition: false,
       isScrolling: true,
-      clientX: clientDownX,
-    })
-  }
+      clientX: e.clientX,
+    });
+  };
 
   const handleSlideMove = (currenClientX) => {
-    const { isScrolling, clientX } = scrollingState;
-
-    if (isScrolling) {
-      const scrX = ((clientX - currenClientX )/carouselRef.current.clientWidth) ;
-      setScrollingState({
-        ...scrollingState,
-        scrollX: scrX
-      });
-    }
-  }
-
-  const onTouchMove = e => {
-    let currenClientX = e.touches[0].clientX;
-    handleSlideMove(currenClientX);
+    if (!scrollingState.isScrolling) {
+      return;
     }
 
-  const onMouseMove = e => {
+    const scrX = ((scrollingState.clientX - currenClientX) / sliderRef.current.clientWidth);
+    setScrollingState({
+      ...scrollingState,
+      scrollX: scrX,
+    });
+  };
+
+  const handleTouchMove = (e) => {
+    handleSlideMove(e.touches[0].clientX);
+  };
+
+  const handleMouseMove = (e) => {
     e.preventDefault();
-    let currenClientX = e.clientX;
-    handleSlideMove(currenClientX);
-  }
+    handleSlideMove(e.clientX);
+  };
 
-  const changeSlideHandle = () => {
+  const currentSlideShow = () => {
+    setScrollingState({
+      ...scrollingState,
+      isTransition: true,
+      isScrolling: false,
+      scrollX: 0,
+    });
+  };
+
+  const showNewSlide = () => {
     if (scrollingState.scrollX > 0.3) {
-      if (currentIndex === (length - slidesPerView) && !infiniteLoop) {
+      if (currentIndex === (lengthSlides - slidesPerView) && !infiniteLoop) {
         currentSlideShow();
         setScrollingState({
           ...scrollingState,
@@ -133,13 +146,14 @@ const Slider = ({
           isScrolling: false,
           scrollX: 0,
           clientX: 0,
-        })
+        });
+
         return;
       }
 
-      onClickNext();
+      handleNextClick();
     } else if (scrollingState.scrollX < -0.3) {
-      onClickPrev();
+      handlePrevClick();
     } else {
       currentSlideShow();
     }
@@ -149,54 +163,40 @@ const Slider = ({
       isScrolling: false,
       scrollX: 0,
       clientX: 0,
-    })
-  }
+    });
+  };
 
-  const currentSlideShow = () => {
-    setScrollingState({
-      ...scrollingState,
-      isTransition: true,
-      isScrolling: false,
-      scrollX: 0,
-    })
-  }
-
-  const onMouseUp = () => {
+  const isScrollingCheck = () => {
     if (!scrollingState.isScrolling) {
-      return;
+
     }
-    changeSlideHandle();
-  }
+  };
 
-  const onTouchEnd = () => {
-    if (!scrollingState.isScrolling) {
-      return;
-    }
+  const handleMouseUp = () => {
+    isScrollingCheck();
+    showNewSlide();
+  };
 
-    changeSlideHandle();
-  }
+  const handleTouchEnd = () => {
+    isScrollingCheck();
+    showNewSlide();
+  };
 
-  const onMouseLeave = e => {
-    if (!scrollingState.isScrolling) {
-      return;
-    }
-
+  const handleMouseLeave = (e) => {
+    isScrollingCheck();
     e.preventDefault();
-    changeSlideHandle();
-  }
+    showNewSlide();
+  };
 
-  const onTouchCancel = () => {
-    if (!scrollingState.isScrolling) {
-      return;
-    }
-
-    changeSlideHandle();
-  }
+  const handleTouchCancel = () => {
+    isScrollingCheck();
+    showNewSlide();
+  };
 
   const renderPrevSlide = () => {
     const output = [];
-    for (let i = 0; i < slidesPerView; i += 1) {
-      output.push(children[length - 1 - i]);
+    for (let i = 0; i <= slidesPerView; i += 1) {
+      output.push(children[children.length - i]);
     }
 
     return output.reverse();
@@ -212,33 +212,34 @@ const Slider = ({
   };
 
   return (
-    <div 
-      className="carousel__container"
-      >
+    <div
+      className={`slider__container ${containerClass}`}
+    >
       <div
-        ref={carouselRef}
-        className={`carousel__slides ${scrollingState.isTransition ? 'transition' : 'transition-stop'}`}
+        ref={sliderRef}
+        className={`slider__slides ${scrollingState.isTransition
+          ? 'transition' : 'transition-stop'}`}
         style={{
           transform: `translateX(-${(currentIndex + scrollingState.scrollX) * 100}%)`,
           width: `calc(100%/${slidesPerView})`,
         }}
-        onTouchStart={onTouchStart}
-        onTouchMove={onTouchMove}
-        onTouchEnd={onTouchEnd}
-        onTouchCancel={onTouchCancel}
-        onMouseDown={onMouseDown}
-        onMouseUp={onMouseUp}
-        onMouseMove={onMouseMove}
-        onMouseLeave={onMouseLeave}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        onTouchCancel={handleTouchCancel}
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
         onTransitionEnd={handleTransitionEnd}
       >
         {
-          (length >= slidesPerView && infiniteLoop)
+          (lengthSlides >= slidesPerView && infiniteLoop)
           && renderPrevSlide()
         }
         {children}
         {
-          (length >= slidesPerView && infiniteLoop)
+          (lengthSlides >= slidesPerView && infiniteLoop)
           && renderNextSlide()
         }
       </div>
@@ -246,15 +247,23 @@ const Slider = ({
         !showProgressBar
         || (
         <ProgressBar
-          length={infiniteLoop ? length : slidesPerView === 1 ? length : length - 1}
+          lengthSlides={infiniteLoop
+            ? lengthSlides : slidesPerView === 1
+              ? lengthSlides : lengthSlides - 1}
           slidesPerView={infiniteLoop ? slidesPerView : 0}
           currentIndex={currentIndicator}
-          onClickIndicator={onClickIndicator}
+          onIndicatorClick={onIndicatorClick}
         />
         )
       }
-      {(infiniteLoop || currentIndex > 0) && <Button onClick={onClickPrev} className="btn__prev" icon={<Prev />} />}
-      {(infiniteLoop || currentIndex < length - slidesPerView) && <Button onClick={onClickNext} className="btn__next" icon={<Next />}/>}
+      {
+        (showButton && (infiniteLoop || currentIndex > 0))
+        && <Button className="prev" onClick={handlePrevClick} icon={<BtnImagePrev />} />
+      }
+      {
+        (showButton && (infiniteLoop || currentIndex < lengthSlides - slidesPerView))
+        && <Button className="next" onClick={handleNextClick} icon={<BtnImageNext />} />
+      }
     </div>
   );
 };
@@ -263,13 +272,17 @@ Slider.defaultProps = {
   slidesPerView: 1,
   infiniteLoop: false,
   showProgressBar: false,
+  showButton: true,
+  containerClass: '',
 };
 
 Slider.propTypes = {
-  slidesPerView: PropTypes.number.isRequired,
-  infiniteLoop: PropTypes.bool.isRequired,
-  showProgressBar: PropTypes.bool.isRequired,
-  children: PropTypes.array.isRequired
+  slidesPerView: PropTypes.number,
+  infiniteLoop: PropTypes.bool,
+  showProgressBar: PropTypes.bool,
+  showButton: PropTypes.bool,
+  children: PropTypes.array.isRequired,
+  containerClass: PropTypes.string,
 };
 
 export default Slider;

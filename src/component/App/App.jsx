@@ -1,19 +1,19 @@
 import React from 'react';
 import Slide from '../Slide/Slide';
-import Slider from '../Slider/Slider';0
-import GitHub from '../Icon/GitHub';
+import Slider from '../Slider/Slider';
+import GitHubImage from '../Icons/GitHubImage';
 
-const img = [
-  { to: './assets/img/m82_chandra_hst_spritzer_galaxy.jpg' },
-  { to: './assets/img/milky_way_galaxy.jpg' },
-  { to: './assets/img/ngc_4414_galaxy.jpg' },
-  { to: './assets/img/andromeda_galaxy.jpg' },
-  { to: './assets/img/circinus_galaxy.jpg' },
-  { to: './assets/img/m33_hunter_wilson_galaxy.jpg' },
-  { to: './assets/img/ngc_55_galaxy.jpg' },
-  { to: './assets/img/spiral_galaxy_ngc_4945_galaxy.jpg' },
-  { to: './assets/img/view_of_the_southern_spiral_ngc_300_galaxy.jpg' },
-  { to: './assets/img/large_magellanic_cloud_galaxy.jpg' },
+const imageLinks = [
+  './assets/img/m82_chandra_hst_spritzer_galaxy.jpg',
+  './assets/img/milky_way_galaxy.jpg',
+  './assets/img/ngc_4414_galaxy.jpg',
+  './assets/img/andromeda_galaxy.jpg',
+  './assets/img/circinus_galaxy.jpg',
+  './assets/img/m33_hunter_wilson_galaxy.jpg',
+  './assets/img/ngc_55_galaxy.jpg',
+  './assets/img/spiral_galaxy_ngc_4945_galaxy.jpg',
+  './assets/img/view_of_the_southern_spiral_ngc_300_galaxy.jpg',
+  './assets/img/large_magellanic_cloud_galaxy.jpg',
 ];
 
 const App = () => (
@@ -21,9 +21,12 @@ const App = () => (
     <header className="header">
       <div className="titles">
         <h1>Slider react</h1>
-        <a href="https://github.com/K2-m5/slider"><GitHub className={"titles_icon"}/></a>
+        <a aria-label="link-to-home" href="https://github.com/K2-m5/slider"><GitHubImage className="titles_icon" /></a>
       </div>
-      <p>React slider component with touch support, works for mobile and desktop devices. You can work with any HTML content. </p>
+      <p>
+        React slider component with touch support,
+        works for mobile and desktop devices. You can work with any HTML content.
+      </p>
     </header>
     <div className="table-container">
       <h2>Property</h2>
@@ -38,22 +41,34 @@ const App = () => (
         </thead>
         <tbody>
           <tr>
+            <td className="props-name_bold">containerClass</td>
+            <td>String</td>
+            <td>&#34; &#34;</td>
+            <td>Slider container class name</td>
+          </tr>
+          <tr>
             <td className="props-name_bold">slidesPerView</td>
             <td>Number</td>
-            <td>1</td>
-            <td>Description</td>
+            <td>1 - 3</td>
+            <td>Multiple slides per view</td>
+          </tr>
+          <tr>
+            <td className="props-name_bold">showButton</td>
+            <td>Boolean</td>
+            <td>true</td>
+            <td>Function for render navigation buttons</td>
+          </tr>
+          <tr>
+            <td className="props-name_bold">showProgressBar</td>
+            <td>Boolean</td>
+            <td>false</td>
+            <td>Function for render progress navigation bar</td>
           </tr>
           <tr>
             <td className="props-name_bold">infiniteLoop</td>
             <td>Boolean</td>
             <td>false</td>
-            <td>Description</td>
-          </tr>
-          <tr>
-            <td className="props-name_bold">slidesPerView</td>
-            <td>Boolean</td>
-            <td>false</td>
-            <td>Description</td>
+            <td>Infinite loop </td>
           </tr>
         </tbody>
       </table>
@@ -63,13 +78,14 @@ const App = () => (
       <p>For simple usage, just pass slides as children. You do not need any configuration!</p>
 
       <Slider
-      infiniteLoop
-      showProgressBar
+        infiniteLoop={false}
+        showButton
+        showProgressBar
       >
-        <Slide to={img[0].to}/>
-        <Slide to={img[1].to}/>
-        <Slide to={img[2].to}/>
-        <Slide to={img[3].to}/>
+        <Slide><img src={imageLinks[0]} alt="galaxy" /></Slide>
+        <Slide><img src={imageLinks[1]} alt="galaxy" /></Slide>
+        <Slide><img src={imageLinks[2]} alt="galaxy" /></Slide>
+        <Slide><img src={imageLinks[3]} alt="galaxy" /></Slide>
       </Slider>
     </div>
 
@@ -81,24 +97,27 @@ const App = () => (
         infiniteLoop
         showProgressBar
       >
-        <div className="carousel__slide slide">
-          <iframe 
+        <Slide><img src={imageLinks[0]} alt="galaxy" /></Slide>
+        <Slide>
+          <iframe
+            title="my-you-tube"
             className="you-tube__player"
-            src={"https://www.youtube.com/embed/Gq_kY3XPTpU?autoplay=1&mute=1enablejsapi=0"}
+            src="https://www.youtube.com/embed/Gq_kY3XPTpU?autoplay=1&mute=1enablejsapi=0"
             frameBorder="0"
-            />
-        </div>
-        <Slide to={img[0].to}/>
-        <Slide to={img[1].to}/>
-        <div className="carousel__slide slide">
-          <iframe 
+          />
+        </Slide>
+        <Slide><img src={imageLinks[1]} alt="galaxy" /></Slide>
+        <Slide>
+          <iframe
+            title="my-you-tube"
             className="you-tube__player"
-            src={"https://www.youtube.com/embed/aa7WIo3yA-8?autoplay=1&mute=1enablejsapi=1"}
+            src="https://www.youtube.com/embed/l11vfJFlgn0?autoplay=1&mute=1enablejsapi=0"
             frameBorder="0"
-            />
-        </div>
-        <Slide to={img[2].to}/>
-        <Slide to={img[3].to}/>
+          />
+        </Slide>
+        <Slide><img src={imageLinks[2]} alt="galaxy" /></Slide>
+        <Slide><img src={imageLinks[3]} alt="galaxy" /></Slide>
+
       </Slider>
     </div>
   </section>

@@ -1,17 +1,17 @@
-.carousel {
+.slider {
   &__container {
     width: 100%;
     height: 100%;
+    font-size: 10px;
     position: relative;
     overflow: hidden;
     margin: 0 auto;
-    border-radius: 2rem;
+    border-radius: 3em;
     user-select: none;
   }
 
   &__slides {
     display: flex;
-    user-select: none;
 
     &.transition {
       transition: all .2s ease;
@@ -20,5 +20,21 @@
     &.transition-stop {
       transition: none;
     }  
+  }
+
+  button {
+    font-size: inherit;
+  }
+}
+
+@media (max-width: 570px) {
+  .slider__container {
+    font-size: 8px;
+  }
+}
+
+@media (max-width: 375px) {
+  .slider__container {
+    font-size: 6px;
   }
 }

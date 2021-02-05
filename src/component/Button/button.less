@@ -1,14 +1,22 @@
-.btn {
+.slider__btn {
   position: absolute;
-  width: 3rem;
-  top: 50%;
-  align-items: center;
-  justify-content: center;
+  top: 48%;
+  width: 2em;
+  margin: 0 1.5em;
+  font-size: inherit;
   fill: white;
   text-align: center;
   background-color: transparent;
   border: none;
   cursor: pointer;
+
+  &.prev {
+    left: 2rem;
+  }
+
+  &.next {
+    right: 2rem;
+  }
 
   &:focus {
     outline: none;
@@ -16,13 +24,5 @@
 
   &:-moz-focus-inner {
     border: 0;
-  }
-
-  &__prev {
-    left: 2rem;
-  }
-
-  &__next {
-    right: 2rem;
   }
 }

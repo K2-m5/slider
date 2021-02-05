@@ -18,35 +18,35 @@
 
 html {
   font-size: 10px;
-}
-
-body {
-  font-family: "Lato";
-  font-weight: 400;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  background-color: #fefefe;
-  color: #555555;
-
-  :before, :after {
-    box-sizing: inherit;
-  }
-
-  html, body, div, iframe,
-  h1, h2, h3, h4, h5, h6, p, a, 
-  img, ol, ul, li, table,
-  tbody, tfoot, thead, tr, th, td,
-  footer, header, 
-  hgroup, nav, output, section, audio,
-  video {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    -moz-border: 0;
-    font-size: 100%;
-    vertical-align: baseline;
+  body {
+    font-family: "Lato";
+    font-weight: 400;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    background-color: #fefefe;
+    color: #555555;
+  
+    :before, :after {
+      box-sizing: inherit;
+    }
+  
+    div, iframe,
+    h1, h2, h3, h4, h5, h6, p, a, 
+    img, ol, ul, li, table,
+    tbody, tfoot, thead, tr, th, td,
+    footer, header, button,
+    hgroup, nav, output, section, audio,
+    video {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      -moz-border: 0;
+      font-size: 100%;
+    }
   }
 }
+
+
 
 .wrapper {
   max-width: 1020px;
@@ -93,7 +93,8 @@ body {
     border-collapse: collapse;
     display: table;
     width: 100%;
-  
+    vertical-align: middle;
+
     .table-props__header {
       background-color: #78a56f;
       color: #ffffff;
@@ -117,7 +118,6 @@ body {
 }
 
 //example
-
 .container__example {
   margin-bottom: 3rem;
 
@@ -138,7 +138,6 @@ body {
     font-size: 8px;
   }
 }
-
 
 @media (max-width: 375px) {
   html {

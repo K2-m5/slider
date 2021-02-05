@@ -4,15 +4,21 @@ import PropTypes from 'prop-types';
 import './slide.less';
 
 const Slide = ({
-  to,
+  children,
+  className,
 }) => (
-  <div className={`carousel__slide slide`}>
-    <img src={to} alt="galaxy" />
+  <div className={`slider__slide slide ${className}`}>
+    {children}
   </div>
 );
 
-export default Slide;
+Slide.defaultProps = {
+  className: '',
+};
 
 Slide.propTypes = {
-  to: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  children: PropTypes.element.isRequired,
 };
+
+export default Slide;

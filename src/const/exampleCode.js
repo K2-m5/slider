@@ -1,26 +1,24 @@
-const simpleCarousel =
-  `<Slider>
-  <div className="carousel__slide slide">
+const simpleslider = `<Slider>
+  <div className="slider__slide slide">
     <img src={'./assets/img/m82_chandra_hst_spritzer_galaxy.jpg'} alt="galaxy" />
   </div>
-  <div className="carousel__slide slide">
+  <div className="slider__slide slide">
     <img src={'./assets/img/m82_chandra_hst_spritzer_galaxy.jpg'} alt="galaxy" />
   </div>
-  <div className="carousel__slide slide">
+  <div className="slider__slide slide">
     <img src={'./assets/img/m82_chandra_hst_spritzer_galaxy.jpg'} alt="galaxy" />
   </div>
-  <div className="carousel__slide slide">
+  <div className="slider__slide slide">
     <img src={'./assets/img/m82_chandra_hst_spritzer_galaxy.jpg'} alt="galaxy" />
   </div>
 <Slider/>`;
 
-const customCarousel = 
-`<Slider
+const customslider = `<Slider
   slidesPerView={2}
   infiniteLoop
   showProgressBar
   >
-    <div className="carousel__slide slide">
+    <div className="slider__slide slide">
       <iframe 
         className="you-tube__player"
         width="100%"
@@ -29,13 +27,13 @@ const customCarousel =
         frameBorder="0"
         />
     </div>
-    <div className="carousel__slide slide">
+    <div className="slider__slide slide">
       <img src={'./assets/img/m82_chandra_hst_spritzer_galaxy.jpg'} alt="galaxy" />
     </div>
-    <div className="carousel__slide slide">
+    <div className="slider__slide slide">
       <img src={'./assets/img/m82_chandra_hst_spritzer_galaxy.jpg'} alt="galaxy" />
     </div>
-    <div className="carousel__slide slide">
+    <div className="slider__slide slide">
       <iframe 
         className="you-tube__player"
         width="100%"
@@ -44,12 +42,12 @@ const customCarousel =
         frameBorder="0"
         />
     </div>
-    <div className="carousel__slide slide">
+    <div className="slider__slide slide">
       <img src={'./assets/img/m82_chandra_hst_spritzer_galaxy.jpg'} alt="galaxy" />
     </div>
-    <div className="carousel__slide slide">
+    <div className="slider__slide slide">
       <img src={'./assets/img/m82_chandra_hst_spritzer_galaxy.jpg'} alt="galaxy" />
     </div>
   <Slider/>`;
 
-export default { simpleCarousel, customCarousel };
+export default { simpleslider, customslider };
