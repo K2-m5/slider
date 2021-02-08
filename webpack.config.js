@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 const devMode = process.env.NODE_ENV !== 'production';
 
@@ -17,10 +18,9 @@ module.exports = {
   context: path.resolve(__dirname, 'src'),
   entry: './index.js',
   output: {
-    filename: 'index.js',
+    filename: '[name].[hash].js',
     path: path.resolve(__dirname, 'dist'),
   },
-  devtool: 'inline-source-map',
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
@@ -28,7 +28,7 @@ module.exports = {
       template: './index.html',
     }),
     new MiniCssExtractPlugin({
-      filename: 'style.css',
+      filename: '[name].[hash].css',
     }),
     new CopyPlugin({
       patterns: [
@@ -53,7 +53,6 @@ module.exports = {
     ],
   },
   module: {
-
     rules: [
       {
         test: /\.(png|jpe?g|gif|svg)$/i,
@@ -92,14 +91,18 @@ module.exports = {
       {
         test: /\.less$/,
         use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
           {
-            loader: MiniCssExtractPlugin.loader,
-            options: {},
+            loader: "less-loader",
           },
-          'css-loader',
-          'less-loader',
         ],
       },
+    ],
+  },
+  optimization: {
+    minimizer: [
+      new CssMinimizerPlugin(),
     ],
   },
 };
