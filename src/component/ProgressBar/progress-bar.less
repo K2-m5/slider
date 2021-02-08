@@ -1,0 +1,30 @@
+.slider {
+  &__navigation {
+    position: absolute;
+    bottom: 5%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    list-style: none;
+
+  &_button {
+    height: 1.2em;
+    width: 1.2em;
+    margin: 0 .7em;
+    padding: 0 .5em;
+    background: #fff;
+    opacity: .5;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .button_selected {
+    opacity: 1;
+    }
+  }
+}
